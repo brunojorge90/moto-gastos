@@ -1,0 +1,81 @@
+{
+  "projeto": "moto-gastos",
+  "descricao": "Frontend React 18 + Vite + TypeScript para app de rastreamento de gastos e manutencoes de motocicleta. Consome a API backend Node.js/Express existente.",
+  "geradoEm": "2026-04-03",
+  "rejeicoes": {
+    "analise": 0,
+    "arquitetura": 0,
+    "desenvolvimento": 0,
+    "qa_docs": 0
+  },
+  "fases": [
+    {
+      "nome": "Analise",
+      "status": "aprovada",
+      "resultado": {
+        "nomeDoProjeto": "moto-gastos",
+        "problema": "Construir um frontend React 18 moderno para gerenciar gastos de combustivel e manutencoes de motocicleta, consumindo uma API REST Node.js/Express ja existente.",
+        "requisitos": [
+          "Autenticacao com JWT (login/registro)",
+          "Cadastro e selecao de motos",
+          "Registro de gastos com combustivel (data, litros, valor, km)",
+          "Registro de manutencoes realizadas",
+          "Tipos de manutencao configurados pelo usuario",
+          "Alertas por km ou data para proximas manutencoes",
+          "Dashboard com resumo de gastos e status de manutencoes",
+          "Graficos de gastos mensais e por tipo"
+        ],
+        "restricoes": [
+          "Consumir exclusivamente a API backend existente em Node.js/Express",
+          "React 18 + Vite + TypeScript",
+          "Tailwind CSS para estilizacao",
+          "Sem SSR — SPA puro"
+        ],
+        "stackSugerida": ["React 18", "Vite", "TypeScript", "Tailwind CSS", "React Router", "React Query", "Axios"]
+      }
+    },
+    {
+      "nome": "Arquitetura",
+      "status": "aprovada",
+      "resultado": {
+        "stack": ["React 18", "Vite", "TypeScript", "Tailwind CSS", "React Router v6", "React Query", "Axios", "Recharts", "Vitest"],
+        "totalEndpoints": 8,
+        "totalEntidades": 5,
+        "estruturaDePastas": "src/\n  api/         (auth, moto, gastos, manutencoes, alertas, client)\n  components/  (ui/, layout/, moto/, manutencoes/, gastos/, alertas/)\n  contexts/    (AuthContext, AlertaContext)\n  hooks/       (useAuth, useMoto, useManutencoes, useGastos, useAlertas)\n  pages/       (Login, Register, Dashboard, Moto, Manutencoes*, Gastos, Alertas)\n  routes/      (AppRouter, ProtectedRoute)\n  types/       (api.ts, index.ts)\n  lib/         (utils.ts, constants.ts)"
+      }
+    },
+    {
+      "nome": "Desenvolvimento",
+      "status": "aprovada",
+      "commit": "27adb8d",
+      "resultado": {
+        "totalArquivos": 57,
+        "destaques": [
+          "src/App.tsx — raiz com providers",
+          "src/routes/AppRouter.tsx — rotas protegidas",
+          "src/contexts/AuthContext.tsx — autenticacao JWT",
+          "src/api/client.ts — Axios configurado com interceptors",
+          "src/pages/DashboardPage.tsx — visao geral",
+          "src/pages/GastosPage.tsx — graficos Recharts",
+          "src/components/manutencoes/ — alertas por km/data"
+        ]
+      }
+    },
+    {
+      "nome": "QA + Documentacao",
+      "status": "aprovada",
+      "commit": "2f063c5",
+      "resultado": {
+        "totalTestes": 13,
+        "frameworkTestes": "Vitest + Testing Library",
+        "coberturaEstimada": 82,
+        "documentos": ["docs/README.md", "docs/architecture.md", "docs/decisions.md"]
+      }
+    },
+    {
+      "nome": "Entrega Final",
+      "status": "concluida",
+      "concluidaEm": "2026-04-03"
+    }
+  ]
+}
