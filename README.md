@@ -45,7 +45,7 @@ npm run dev      # http://localhost:5173
 | `TELEGRAM_BOT_TOKEN` | para Telegram | Token do bot (BotFather) |
 | `CRON_SECRET` | para cron | Token usado pelo cron externo no header `x-cron-secret` |
 | `RUN_INTERNAL_CRON` | não | `true` em dev / hosts sem sleep; `false` em Render free |
-| `NOTIFICACAO_CRON` | não | Cron interno (default `0 9 * * *`) |
+| `NOTIFICACAO_CRON` | não | Cron interno (default `0 9 * * 1` — segundas, 9h) |
 | `FRONTEND_URL` | sim | URL do frontend (CORS) |
 | `WEBHOOK_API_KEY` | opcional | Auth do `/webhook/alertas-pendentes` (legado N8N) |
 | `PORT` | não | Porta (Render injeta automaticamente) |
@@ -95,7 +95,7 @@ Atualizar `FRONTEND_URL` no Render com a URL do Vercel.
    - URL: `https://<seu-render>.onrender.com/cron/tick`
    - Method: `POST`
    - Header: `x-cron-secret: <CRON_SECRET do Render>`
-   - Schedule: diário às 9h
+   - Schedule: semanal, segundas às 9h
 3. Esse job acorda o backend (sleep do Render free) e dispara as notificações
 
 ## Funcionalidades
