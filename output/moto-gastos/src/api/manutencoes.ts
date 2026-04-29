@@ -17,14 +17,14 @@ export async function createTipo(payload: { nome: string; intervalo_km: number }
 }
 
 export async function updateTipo(
-  id: number,
+  id: string,
   payload: { nome?: string; intervalo_km?: number; ativo?: boolean }
 ): Promise<ManutencaoTipo> {
   const { data } = await apiClient.put<ManutencaoTipo>(`/manutencoes/tipos/${id}`, payload)
   return data
 }
 
-export async function deleteTipo(id: number): Promise<void> {
+export async function deleteTipo(id: string): Promise<void> {
   await apiClient.delete(`/manutencoes/tipos/${id}`)
 }
 
@@ -38,7 +38,7 @@ export async function getStatus(): Promise<ManutencaoStatusResponse> {
 export interface GetRealizadasParams {
   limit?: number
   offset?: number
-  tipo_manutencao_id?: number
+  tipo_manutencao_id?: string
 }
 
 export async function getRealizadas(params?: GetRealizadasParams): Promise<ManutencaoRealizada[]> {
@@ -47,7 +47,7 @@ export async function getRealizadas(params?: GetRealizadasParams): Promise<Manut
 }
 
 export interface CreateRealizadaPayload {
-  tipo_manutencao_id: number
+  tipo_manutencao_id: string
   data_realizacao: string
   km_no_momento: number
   valor_gasto: number
@@ -59,6 +59,6 @@ export async function createRealizada(payload: CreateRealizadaPayload): Promise<
   return data
 }
 
-export async function deleteRealizada(id: number): Promise<void> {
+export async function deleteRealizada(id: string): Promise<void> {
   await apiClient.delete(`/manutencoes/realizadas/${id}`)
 }

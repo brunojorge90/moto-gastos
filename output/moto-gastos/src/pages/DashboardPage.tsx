@@ -7,7 +7,7 @@ import { useGastosResumo } from '@/hooks/useGastos'
 import { formatKm, formatCurrency } from '@/lib/utils'
 import { AlertBadge } from '@/components/manutencoes/AlertBadge'
 import { Link } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 
 export function DashboardPage() {
   const motoQuery = useMoto()
@@ -111,9 +111,7 @@ export function DashboardPage() {
           <CardContent className="text-center py-12">
             <Bike className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
             <p className="text-muted-foreground mb-4">Você ainda não cadastrou sua moto.</p>
-            <Button asChild>
-              <Link to="/moto">Cadastrar Moto</Link>
-            </Button>
+            <Link to="/moto" className={buttonVariants()}>Cadastrar Moto</Link>
           </CardContent>
         </Card>
       )}

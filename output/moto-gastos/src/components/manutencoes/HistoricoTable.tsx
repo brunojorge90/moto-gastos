@@ -5,8 +5,8 @@ import type { ManutencaoRealizada } from '@/types'
 
 interface HistoricoTableProps {
   items: ManutencaoRealizada[]
-  onDelete: (id: number) => void
-  isDeletingId?: number
+  onDelete: (id: string) => void
+  isDeletingId?: string
 }
 
 export function HistoricoTable({ items, onDelete, isDeletingId }: HistoricoTableProps) {

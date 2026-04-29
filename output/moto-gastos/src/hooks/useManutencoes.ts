@@ -34,7 +34,7 @@ export function useCreateTipo() {
 export function useUpdateTipo() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: ({ id, payload }: { id: number; payload: { nome?: string; intervalo_km?: number; ativo?: boolean } }) =>
+    mutationFn: ({ id, payload }: { id: string; payload: { nome?: string; intervalo_km?: number; ativo?: boolean } }) =>
       updateTipo(id, payload),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: QUERY_KEYS.manutencoesTipos })
@@ -46,7 +46,7 @@ export function useUpdateTipo() {
 export function useDeleteTipo() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (id: number) => deleteTipo(id),
+    mutationFn: (id: string) => deleteTipo(id),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: QUERY_KEYS.manutencoesTipos })
       qc.invalidateQueries({ queryKey: QUERY_KEYS.manutencoesStatus })
@@ -83,7 +83,7 @@ export function useCreateRealizada() {
 export function useDeleteRealizada() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (id: number) => deleteRealizada(id),
+    mutationFn: (id: string) => deleteRealizada(id),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['manutencoes', 'realizadas'] })
       qc.invalidateQueries({ queryKey: QUERY_KEYS.manutencoesStatus })

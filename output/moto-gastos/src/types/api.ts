@@ -1,5 +1,5 @@
 export interface User {
-  id: number
+  id: string
   email: string
   nome?: string
 }
@@ -10,7 +10,7 @@ export interface AuthResponse {
 }
 
 export interface Moto {
-  id: number
+  id: string
   apelido: string
   modelo: string
   ano: number
@@ -25,15 +25,15 @@ export interface MotoResponse {
 }
 
 export interface ManutencaoTipo {
-  id: number
+  id: string
   nome: string
   intervalo_km: number
   ativo: boolean
 }
 
 export interface ManutencaoRealizada {
-  id: number
-  tipo_manutencao_id: number
+  id: string
+  tipo_manutencao_id: string
   tipo?: ManutencaoTipo
   data_realizacao: string
   km_no_momento: number
@@ -81,7 +81,7 @@ export interface GastosResumoResponse {
 }
 
 export interface AlertaConfig {
-  tipo_manutencao_id: number
+  tipo_manutencao_id: string
   tipo?: ManutencaoTipo
   km_antecedencia: number
   notificacao_ativa: boolean

@@ -23,7 +23,7 @@ export function useUpdateAlertaConfig() {
       tipo_manutencao_id,
       payload,
     }: {
-      tipo_manutencao_id: number
+      tipo_manutencao_id: string
       payload: { km_antecedencia?: number; notificacao_ativa?: boolean }
     }) => updateAlertaConfig(tipo_manutencao_id, payload),
     onSuccess: () => {

@@ -39,7 +39,7 @@ export function ManutencoesTiposPage() {
     updateTipo.mutate({ id: tipo.id, payload: { ativo: !tipo.ativo } })
   }
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     if (confirm('Deseja excluir este tipo? Isso removerá o histórico associado.')) {
       deleteTipo.mutate(id)
     }

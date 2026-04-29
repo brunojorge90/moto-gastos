@@ -3,7 +3,7 @@ import { StatusCard } from '@/components/manutencoes/StatusCard'
 import { useManutencoesStatus } from '@/hooks/useManutencoes'
 import { Card, CardContent } from '@/components/ui/card'
 import { Link } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { formatKm } from '@/lib/utils'
 
 export function ManutencoesStatusPage() {
@@ -32,9 +32,7 @@ export function ManutencoesStatusPage() {
       <Card className="border-dashed">
         <CardContent className="text-center py-12">
           <p className="text-muted-foreground mb-4">Cadastre sua moto primeiro para ver o status de manutenções.</p>
-          <Button asChild>
-            <Link to="/moto">Cadastrar Moto</Link>
-          </Button>
+          <Link to="/moto" className={buttonVariants()}>Cadastrar Moto</Link>
         </CardContent>
       </Card>
     )
@@ -57,9 +55,7 @@ export function ManutencoesStatusPage() {
         <Card className="border-dashed">
           <CardContent className="text-center py-10">
             <p className="text-muted-foreground mb-4">Nenhum tipo de manutenção cadastrado.</p>
-            <Button asChild>
-              <Link to="/manutencoes/tipos">Cadastrar Tipos</Link>
-            </Button>
+            <Link to="/manutencoes/tipos" className={buttonVariants()}>Cadastrar Tipos</Link>
           </CardContent>
         </Card>
       )}

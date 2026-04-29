@@ -7,7 +7,7 @@ export async function getAlertasConfig(): Promise<AlertaConfig[]> {
 }
 
 export async function updateAlertaConfig(
-  tipo_manutencao_id: number,
+  tipo_manutencao_id: string,
   payload: { km_antecedencia?: number; notificacao_ativa?: boolean }
 ): Promise<AlertaConfig> {
   const { data } = await apiClient.put<AlertaConfig>(

@@ -10,12 +10,12 @@ import { formatKm } from '@/lib/utils'
 
 interface AlertasConfigProps {
   configs: AlertaConfig[]
-  onUpdate: (tipo_manutencao_id: number, payload: { km_antecedencia?: number; notificacao_ativa?: boolean }) => void
+  onUpdate: (tipo_manutencao_id: string, payload: { km_antecedencia?: number; notificacao_ativa?: boolean }) => void
   isUpdating?: boolean
 }
 
 export function AlertasConfigComponent({ configs, onUpdate, isUpdating }: AlertasConfigProps) {
-  const [editingId, setEditingId] = useState<number | null>(null)
+  const [editingId, setEditingId] = useState<string | null>(null)
   const [kmValue, setKmValue] = useState<number>(0)
 
   const startEdit = (config: AlertaConfig) => {
@@ -23,7 +23,7 @@ export function AlertasConfigComponent({ configs, onUpdate, isUpdating }: Alerta
     setKmValue(config.km_antecedencia)
   }
 
-  const saveEdit = (tipo_manutencao_id: number) => {
+  const saveEdit = (tipo_manutencao_id: string) => {
     onUpdate(tipo_manutencao_id, { km_antecedencia: kmValue })
     setEditingId(null)
   }
