@@ -38,3 +38,8 @@ export async function notificarAgora(): Promise<{ enviadas: number; erros: numbe
   )
   return data
 }
+
+export async function enviarRelatorioTelegram(): Promise<{ ok: boolean }> {
+  const { data } = await apiClient.post<{ ok: boolean }>('/alertas/telegram/relatorio')
+  return data
+}

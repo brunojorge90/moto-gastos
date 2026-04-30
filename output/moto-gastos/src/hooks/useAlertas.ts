@@ -6,6 +6,7 @@ import {
   updateTelegramConfig,
   testarTelegram,
   notificarAgora,
+  enviarRelatorioTelegram,
 } from '@/api/alertas'
 import { QUERY_KEYS } from '@/lib/constants'
 
@@ -56,4 +57,8 @@ export function useTestarTelegram() {
 
 export function useNotificarAgora() {
   return useMutation({ mutationFn: notificarAgora })
+}
+
+export function useEnviarRelatorioTelegram() {
+  return useMutation({ mutationFn: enviarRelatorioTelegram })
 }

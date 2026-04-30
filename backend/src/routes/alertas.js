@@ -3,6 +3,7 @@ import { query } from '../db/index.js';
 import authMiddleware from '../middleware/auth.js';
 import { enviarMensagemTelegram } from '../services/telegramService.js';
 import { processarNotificacoesPendentes } from '../services/notificacaoService.js';
+import { calcularStatusManutencoes } from '../services/alertaService.js';
 
 const router = Router();
 router.use(authMiddleware);
@@ -41,6 +42,65 @@ router.post('/telegram/test', async (req, res, next) => {
       chatId,
       '✅ <b>Moto Gastos</b>\nMensagem de teste recebida com sucesso! Seu Telegram está conectado.'
     );
+    res.json({ ok: true });
+  } catch (err) {
+    res.status(502).json({ error: err.message });
+  }
+});
+
+// POST /alertas/telegram/relatorio — envia resumo completo (todos os tipos) sob demanda
+router.post('/telegram/relatorio', async (req, res) => {
+  try {
+    const userResult = await query('SELECT telegram_chat_id FROM users WHERE id = $1', [req.userId]);
+    const chatId = userResult.rows[0]?.telegram_chat_id;
+    if (!chatId) {
+      return res.status(400).json({ error: 'Cadastre seu chat_id do Telegram primeiro.' });
+    }
+
+    const { moto, kmAtual, statusList } = await calcularStatusManutencoes(req.userId);
+    if (!moto) {
+      return res.status(400).json({ error: 'Cadastre sua moto primeiro.' });
+    }
+
+    const vencidas = statusList.filter((s) => s.vencida);
+    const alertas = statusList.filter((s) => s.alerta_ativo && !s.vencida);
+    const okList = statusList.filter((s) => !s.alerta_ativo && !s.vencida);
+
+    const linhas = [];
+    const nomeMoto = moto.apelido || moto.modelo || 'sua moto';
+    linhas.push(`🏍 <b>${nomeMoto}</b> — ${Math.round(kmAtual)} km`);
+    linhas.push(`Média: ${parseFloat(moto.media_diaria_km)} km/dia`);
+    linhas.push('');
+
+    if (vencidas.length) {
+      linhas.push('❌ <b>Vencidas</b>');
+      vencidas.forEach((s) => {
+        const atraso = Math.abs(Math.round(s.km_restante));
+        linhas.push(`• ${s.tipo.nome} — ${atraso} km atrás`);
+      });
+      linhas.push('');
+    }
+
+    if (alertas.length) {
+      linhas.push('⚠️ <b>Alerta</b>');
+      alertas.forEach((s) => {
+        linhas.push(`• ${s.tipo.nome} — faltam ${Math.round(s.km_restante)} km`);
+      });
+      linhas.push('');
+    }
+
+    if (okList.length) {
+      linhas.push('✅ <b>OK</b>');
+      okList.forEach((s) => {
+        linhas.push(`• ${s.tipo.nome} — faltam ${Math.round(s.km_restante)} km`);
+      });
+    }
+
+    if (!vencidas.length && !alertas.length && !okList.length) {
+      linhas.push('Nenhum tipo de manutenção cadastrado.');
+    }
+
+    await enviarMensagemTelegram(chatId, linhas.join('\n'));
     res.json({ ok: true });
   } catch (err) {
     res.status(502).json({ error: err.message });
