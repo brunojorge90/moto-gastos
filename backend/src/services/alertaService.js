@@ -36,7 +36,8 @@ export const calcularStatusManutencoes = async (userId) => {
     );
 
     const ultima = ultimaResult.rows[0] || null;
-    const kmUltima = ultima ? parseFloat(ultima.km_no_momento) : 0;
+    // Sem histórico de manutenção: usa km_inicial como baseline (essencial para motos usadas).
+    const kmUltima = ultima ? parseFloat(ultima.km_no_momento) : parseFloat(moto.km_inicial);
     const kmRestante = calcularKmRestante(kmAtual, kmUltima, tipo.intervalo_km);
     const kmProxima = kmUltima + parseFloat(tipo.intervalo_km);
     const dataEstimada = estimarDataProximaManutencao(kmRestante, moto.media_diaria_km);

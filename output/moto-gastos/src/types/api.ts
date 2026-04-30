@@ -46,7 +46,7 @@ export interface ManutencaoStatusItem {
   ultimaManutencao: ManutencaoRealizada | null
   km_proxima: number
   km_restante: number
-  data_estimada: string
+  data_estimada: string | null
   alerta_ativo: boolean
   vencida: boolean
   km_antecedencia: number

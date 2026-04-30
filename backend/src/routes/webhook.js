@@ -49,7 +49,8 @@ router.get('/alertas-pendentes', webhookAuth, async (req, res, next) => {
         );
 
         const ultima = ultimaResult.rows[0];
-        const kmUltima = ultima ? parseFloat(ultima.km_no_momento) : 0;
+        // Sem histórico: baseline é km_inicial (importante para motos usadas).
+        const kmUltima = ultima ? parseFloat(ultima.km_no_momento) : parseFloat(moto.km_inicial);
         const kmRestante = calcularKmRestante(kmAtual, kmUltima, tipo.intervalo_km);
 
         if (kmRestante <= parseFloat(alertaConfig.km_antecedencia)) {
